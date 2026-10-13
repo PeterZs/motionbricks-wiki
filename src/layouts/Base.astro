@@ -49,26 +49,45 @@ const L = lang === "zh" ? {
   arch: "架构", styles: "风格库", sonic: "SONIC", news: "新闻",
   skip: "跳到主要内容", crumbsHome: "首页", about: "关于本站", community: "社区",
   assets: "官方素材", officialRepo: "官方仓库",
+  related: "相关",
+  relatedNote: "社区指南——与本站及 NVIDIA 无关联。",
   legal: "非官方社区指南——与 NVIDIA 无关联、未获 NVIDIA 背书或赞助。MotionBricks™ 与 NVIDIA® 是 NVIDIA Corporation 的商标。代码事实来源于公开的 MotionBricks README（Apache 2.0）；模型权重受 NVIDIA Open Model License 约束。所有演示媒体均链接 NVIDIA 官方托管文件，本站不镜像、不自托管任何内容。",
 } : lang === "es" ? {
   home: "Inicio", setup: "Instalación", g1: "Demo G1", ue5: "UE5", unity: "Unity",
   arch: "Arquitectura", styles: "Estilos", sonic: "SONIC", news: "Noticias",
   skip: "Saltar al contenido", crumbsHome: "Inicio", about: "Sobre este sitio", community: "Comunidad",
   assets: "Materiales oficiales", officialRepo: "Repositorio oficial",
+  related: "Recursos",
+  relatedNote: "Documentación comunitaria — sin afiliación con esta guía ni con NVIDIA.",
   legal: "Guía comunitaria no oficial — no afiliada, respaldada ni patrocinada por NVIDIA. MotionBricks™ y NVIDIA® son marcas comerciales de NVIDIA Corporation. Los datos de código provienen del README público de MotionBricks (Apache 2.0); los pesos del modelo están cubiertos por la NVIDIA Open Model License. Todos los medios de demostración enlazan archivos alojados por NVIDIA; nada se refleja ni se re-hospeda aquí.",
 } : lang === "ja" ? {
   home: "ホーム", setup: "セットアップ", g1: "G1デモ", ue5: "UE5", unity: "Unity",
   arch: "アーキテクチャ", styles: "スタイル", sonic: "SONIC", news: "ニュース",
   skip: "本文へスキップ", crumbsHome: "ホーム", about: "このサイトについて", community: "コミュニティ",
   assets: "公式アセット", officialRepo: "公式リポジトリ",
+  related: "関連",
+  relatedNote: "コミュニティドキュメント — 本ガイドおよび NVIDIA とは無関係です。",
   legal: "非公式コミュニティガイド — NVIDIA とは無関係であり、NVIDIA の承認・後援を受けていません。MotionBricks™ および NVIDIA® は NVIDIA Corporation の商標です。コードの事実は公開されている MotionBricks README（Apache 2.0）に基づきます。モデル重みは NVIDIA Open Model License の対象です。デモメディアはすべて NVIDIA ホストのファイルへのリンクであり、当サイトではミラーも再ホストもしません。",
 } : {
   home: "Home", setup: "Setup", g1: "G1 demo", ue5: "UE5", unity: "Unity",
   arch: "Architecture", styles: "Styles", sonic: "SONIC", news: "News",
   skip: "Skip to content", crumbsHome: "Home", about: "About this site", community: "Community",
   assets: "Official assets", officialRepo: "Official repo",
+  related: "Related",
+  relatedNote: "Community docs — not affiliated with this guide or NVIDIA.",
   legal: "Unofficial community guide — not affiliated with, endorsed by, or sponsored by NVIDIA. MotionBricks™ and NVIDIA® are trademarks of NVIDIA Corporation. Code facts sourced from the public MotionBricks README (Apache 2.0); model weights are covered by the NVIDIA Open Model License. All demo media links to NVIDIA-hosted files; nothing is mirrored or re-hosted here.",
 };
+
+// Community docs only. Dofollow (no nofollow). Chinese pages use the zh guide.
+const related = lang === "zh" ? [
+  { href: "https://rea.run/zh/", label: "rea.run" },
+  { href: "https://rea.run/zh/", label: "REA" },
+  { href: "https://rea.run/zh/", label: "编程智能体逆向" },
+] : [
+  { href: "https://rea.run/", label: "rea.run" },
+  { href: "https://rea.run/", label: "REA" },
+  { href: "https://rea.run/", label: "Reverse Engineer Anything" },
+];
 
 const nav = [
   { href: "/setup/", label: L.setup },
@@ -161,6 +180,11 @@ const basePathForLang = (l: string) => (
         <a href={lang === "zh" ? "/zh/assets/" : "/assets/"}>{L.assets}</a>
         <a href={new URL("https://github.com/NVlabs/GR00T-WholeBodyControl")} rel="noopener">{L.officialRepo}</a>
       </div>
+      <nav class="foot-related" aria-label={L.related}>
+        <span class="foot-kicker">{L.related}</span>
+        {related.map((r) => <a href={r.href} rel="noopener">{r.label}</a>)}
+      </nav>
+      <p class="foot-related-note">{L.relatedNote}</p>
       <p class="foot-legal">{L.legal}</p>
     </div>
   </footer>
